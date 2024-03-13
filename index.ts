@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 // Store in memory
 const secrets_map: { [key: string]: string } = {};
-
+//new commet
 function aleatoryValue(): number {
   let randomNumber: number;
   do {
