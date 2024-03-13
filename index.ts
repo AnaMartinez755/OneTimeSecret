@@ -11,10 +11,8 @@ app.use(bodyParser.json());
 const secrets_map: { [key: string]: string } = {};
 function aleatoryValue(): number {
   let randomNumber: number;
-  do {
-    const bytes = crypto.randomBytes(16);
-    randomNumber = parseInt(bytes.toString("hex"), 16);
-  } while (secrets_map[randomNumber] !== undefined); // Check if the number already exists
+  const bytes = crypto.randomBytes(32);
+  randomNumber = parseInt(bytes.toString("hex"), 32);
   return randomNumber;
 }
 
