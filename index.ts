@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 // Store in memory
 const secrets_map: { [key: string]: string } = {};
 function aleatoryValue(): number {
-  let randomNumber: number;
+  let randomNumber: number = 0;
   const bytes = crypto.randomBytes(32);
   randomNumber = parseInt(bytes.toString("hex"), 32);
   return randomNumber;
