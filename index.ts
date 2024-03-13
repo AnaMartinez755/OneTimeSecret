@@ -1,18 +1,18 @@
 import express from "express";
 import { Request, Response } from "express";
 import * as bodyParser from "body-parser";
+import data from "./config.json";
 import crypto from "crypto";
 const app = express();
-const port = 5000;
 
 app.use(bodyParser.json());
 
 // Store in memory
-let secrets_map: { [key: string]: string } = {};
+const secrets_map: { [key: string]: string } = {};
 function aleatoryValue(): number {
   let randomNumber: number = 0;
-  const bytes = crypto.randomBytes(32);
-  randomNumber = parseInt(bytes.toString("hex"), 32);
+  const bytes = crypto.randomBytes(data.secretSize);
+  randomNumber = parseInt(bytes.toString("hex"), data.secretSize);
   return randomNumber;
 }
 
@@ -37,6 +37,6 @@ app.get("/api/secret/:secretKey", (req: Request, res: Response) => {
   res.status(200).json({ secretMessage });
 });
 
-app.listen(port, () => {
+app.listen(data.portNumber, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
