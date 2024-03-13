@@ -8,7 +8,7 @@ const port = 5000;
 app.use(bodyParser.json());
 
 // Store in memory
-const secrets_map: { [key: string]: string } = {};
+let secrets_map: { [key: string]: string } = {};
 function aleatoryValue(): number {
   let randomNumber: number = 0;
   const bytes = crypto.randomBytes(32);
