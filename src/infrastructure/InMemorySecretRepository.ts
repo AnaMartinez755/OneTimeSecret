@@ -5,9 +5,14 @@ import * as data from "../../config.json";
 const secrets_map: { [key: string]: string } = {};
 
 export class InMemorySecretRepository implements SecretRepository {
-  async storeSecret(secret: Secret): Promise<number> {
+  async generateSecretKey() {
     const bytes = crypto.randomBytes(data.secretSize);
     const secretKey: number = parseInt(bytes.toString("hex"), data.secretSize);
+    return secretKey;
+  }
+
+  async storeSecret(secret: Secret): Promise<number> {
+    const secretKey = await this.generateSecretKey();
     secrets_map[secretKey] = JSON.stringify(secret);
     return secretKey;
   }

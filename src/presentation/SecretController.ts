@@ -1,6 +1,6 @@
 import * as express from "express";
-import { SecretService } from "../application/SecretService.js";
-import { InMemorySecretRepository } from "../infrastructure/InMemorySecretRepository.js";
+import { SecretService } from "../application/SecretService";
+import { InMemorySecretRepository } from "../infrastructure/InMemorySecretRepository";
 
 export class SecretController {
   constructor(
