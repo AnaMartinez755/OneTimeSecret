@@ -1,8 +1,7 @@
-import express from "express";
-import { SecretController } from "./presentation/SecretController";
-
+import * as express from "express";
+import { SecretController } from "./src/presentation/SecretController";
+import * as data from "./config.json";
 const app = express();
-const port = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -14,6 +13,8 @@ app.get(
   secretController.getSecret.bind(secretController)
 );
 
-app.listen(port, () => {
-  console.log(`Listening http://localhost:${port}`);
+app.listen(data.portNumber, () => {
+  console.log(`Listening http://localhost:${data.portNumber}`);
 });
+
+export default app;

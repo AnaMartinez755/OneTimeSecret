@@ -1,13 +1,13 @@
 import { SecretRepository } from "../domain/repository/SecretRepository.interface";
 import { Secret } from "../domain/model/SecretModel";
-import crypto from "crypto";
-
+import * as crypto from "crypto";
+import * as data from "../../config.json";
 const secrets_map: { [key: string]: string } = {};
 
 export class InMemorySecretRepository implements SecretRepository {
   async storeSecret(secret: Secret): Promise<number> {
-    const bytes = crypto.randomBytes(32);
-    const secretKey: number = parseInt(bytes.toString("hex"), 32);
+    const bytes = crypto.randomBytes(data.secretSize);
+    const secretKey: number = parseInt(bytes.toString("hex"), data.secretSize);
     secrets_map[secretKey] = JSON.stringify(secret);
     return secretKey;
   }
