@@ -36,35 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InMemorySecretRepository = void 0;
-var crypto = require("crypto");
-var data = require("../../config.json");
-var secrets_map = {};
-var InMemorySecretRepository = /** @class */ (function () {
-    function InMemorySecretRepository() {
+exports.SecretService = void 0;
+var SecretModel_1 = require("../domain/model/SecretModel");
+var SecretService = /** @class */ (function () {
+    function SecretService(secretRepository) {
+        this.secretRepository = secretRepository;
     }
-    InMemorySecretRepository.prototype.storeSecret = function (secret) {
+    SecretService.prototype.createSecret = function (message) {
         return __awaiter(this, void 0, void 0, function () {
-            var bytes, secretKey;
+            var secret, key;
             return __generator(this, function (_a) {
-                bytes = crypto.randomBytes(data.secretSize);
-                secretKey = parseInt(bytes.toString("hex"), data.secretSize);
-                secrets_map[secretKey] = JSON.stringify(secret);
-                return [2 /*return*/, secretKey];
+                switch (_a.label) {
+                    case 0:
+                        secret = new SecretModel_1.Secret(message);
+                        return [4 /*yield*/, this.secretRepository.storeSecret(secret)];
+                    case 1:
+                        key = _a.sent();
+                        return [2 /*return*/, key];
+                }
             });
         });
     };
-    InMemorySecretRepository.prototype.retrieveSecret = function (key) {
+    SecretService.prototype.getSecret = function (key) {
         return __awaiter(this, void 0, void 0, function () {
-            var secretData;
+            var secret;
             return __generator(this, function (_a) {
-                secretData = secrets_map[key];
-                if (!secretData)
-                    return [2 /*return*/, undefined];
-                return [2 /*return*/, JSON.parse(secretData)];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.secretRepository.retrieveSecret(key)];
+                    case 1:
+                        secret = _a.sent();
+                        return [2 /*return*/, secret];
+                }
             });
         });
     };
-    return InMemorySecretRepository;
+    return SecretService;
 }());
-exports.InMemorySecretRepository = InMemorySecretRepository;
+exports.SecretService = SecretService;

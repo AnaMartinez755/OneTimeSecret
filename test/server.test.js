@@ -36,35 +36,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InMemorySecretRepository = void 0;
-var crypto = require("crypto");
-var data = require("../../config.json");
-var secrets_map = {};
-var InMemorySecretRepository = /** @class */ (function () {
-    function InMemorySecretRepository() {
-    }
-    InMemorySecretRepository.prototype.storeSecret = function (secret) {
-        return __awaiter(this, void 0, void 0, function () {
-            var bytes, secretKey;
+var app_1 = require("../app");
+var request = require("supertest");
+describe("POST /api/secrets", function () {
+    describe("post a message", function () {
+        // the answer should be 201 when succesfully post
+        test("should respon with a 201 status code", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
             return __generator(this, function (_a) {
-                bytes = crypto.randomBytes(data.secretSize);
-                secretKey = parseInt(bytes.toString("hex"), data.secretSize);
-                secrets_map[secretKey] = JSON.stringify(secret);
-                return [2 /*return*/, secretKey];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request(app_1.default).post("/api/secrets").send({
+                            message: "Hello world",
+                        })];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(201);
+                        return [2 /*return*/];
+                }
             });
-        });
-    };
-    InMemorySecretRepository.prototype.retrieveSecret = function (key) {
-        return __awaiter(this, void 0, void 0, function () {
-            var secretData;
-            return __generator(this, function (_a) {
-                secretData = secrets_map[key];
-                if (!secretData)
-                    return [2 /*return*/, undefined];
-                return [2 /*return*/, JSON.parse(secretData)];
-            });
-        });
-    };
-    return InMemorySecretRepository;
-}());
-exports.InMemorySecretRepository = InMemorySecretRepository;
+        }); });
+    });
+});
+//npx jest --detectOpenHandles

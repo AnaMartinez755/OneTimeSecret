@@ -27,3 +27,4 @@ jobs:
       - run: npm ci
       - run: npx eslint .
       - run: npx eslint --format html . > report.html
+      - run: npx jest --detectOpenHandles
