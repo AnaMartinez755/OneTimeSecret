@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import { SecretService } from "../application/SecretService";
 import { InMemorySecretRepository } from "../infrastructure/InMemorySecretRepository";
 
