@@ -1,11 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es2015",
-        "lib": [
-            "es6"
-        ],
         "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "outDir": "./dist"
     }

@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  api:
+    build:
+      context: .
+      target: production
+    image: registry-host:5000/one_secret_app:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - IMAGE_NAME=registry-host:500

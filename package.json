@@ -2,15 +2,15 @@
   "name": "one_time_secret",
   "version": "1.0.0",
   "description": "none",
-  "main": "app.ts",
+  "main": "server.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "jest",
-    "dev": "tsc && node dist/app.ts",
+    "dev": "tsc && node dist/server.js",
     "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && node dist/server.js"
   },
   "author": "",
   "license": "ISC",

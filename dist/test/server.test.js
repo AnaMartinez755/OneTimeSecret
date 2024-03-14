@@ -133,8 +133,15 @@ var __generator =
       return { value: op[0] ? op[1] : void 0, done: true };
     }
   };
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = require("../app"); // Assuming app is your Express server instance
+var SecretRoutes_1 = __importDefault(
+  require("../src/presentation/SecretRoutes")
+); // Assuming app is your Express server instance
 var request = require("supertest");
 describe("POST /api/secrets", function () {
   describe("post a message", function () {
@@ -147,7 +154,7 @@ describe("POST /api/secrets", function () {
             case 0:
               return [
                 4 /*yield*/,
-                request(app_1.default).post("/api/secrets").send({
+                request(SecretRoutes_1.default).post("/api/secrets").send({
                   message: "Hello world",
                 }),
               ];
@@ -167,7 +174,7 @@ describe("POST /api/secrets", function () {
             case 0:
               return [
                 4 /*yield*/,
-                request(app_1.default).post("/invalid/endpoint").send({
+                request(SecretRoutes_1.default).post("/invalid/endpoint").send({
                   message: "Hello world",
                 }),
               ];
