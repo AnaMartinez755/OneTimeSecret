@@ -45,12 +45,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-        env:
-          IMAGE_NAME: registry-host:5000/one_secret_app
       - name: Build Docker image
         run: docker-compose build
       - name: Push image to Docker Hub
-        run: docker push ${{ env.IMAGE_NAME }}:latest
+        run: docker push registry-host:5000/one_secret_app:latest
       - name: Start container
         run: |
           docker-compose up -d
