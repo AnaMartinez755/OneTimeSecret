@@ -6,7 +6,7 @@ services:
       context: .
       target: production
 
-    image: docker.io/one_secret_app:latest
+    image: martinezcarballo/dockerfordotnetapi:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
