@@ -48,7 +48,7 @@ jobs:
       - name: Build Docker image
         run: docker-compose build
       - name: Push image to Docker Hub
-        run: docker image push registry-host:5000/one_secret_app:latest
+        run: docker image push docker.io/one_secret_app:latest
       - name: Start container
         run: |
           docker-compose up -d
