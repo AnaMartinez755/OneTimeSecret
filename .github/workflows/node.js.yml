@@ -46,10 +46,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        run: docker-compose build
-
-      - name: Push image to Docker Hub (assuming image name matches docker-compose)
-        run: docker-compose push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/dockerfordotnetapi:latest, ${{ secrets.DOCKERHUB_USERNAME }}/dockerfordotnetapi:${{ github.run_number }}
       - name: Start container
         run: |
           docker-compose up -d
