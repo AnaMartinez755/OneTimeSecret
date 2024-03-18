@@ -28,10 +28,32 @@ jobs:
       - run: npx eslint .
       - run: npx eslint --format html . > report.html
       - run: npm test unit.test.ts server.test.ts --forceExit --coverage
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Test with coverage
+        id: test
+        run: npm test unit.test.ts server.test.ts --forceExit --coverage
 
+      - name: Get coverage percentage
+        id: get-coverage
+        run: |
+          coverage=$(node -e "console.log(parseInt('${{ steps.test.outputs.coverage }}'.split('%')[0]))")
+          echo "::set-output name=coverage::${coverage}"
+      - name: Validate coverage
+        run: |
+          threshold=70
+          if [ "${{ steps.get-coverage.outputs.coverage }}" -lt "${threshold}" ]; then
+            echo "Code coverage below ${threshold}%"
+            exit 1
+          fi
   docker:
     runs-on: ubuntu-latest
-    needs: code-check # Wait for code-check job to finish
+    needs: code-check
 
     steps:
       - name: Checkout
